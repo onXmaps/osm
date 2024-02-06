@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/onXmaps/osm
+	"github.com/onXmaps/osm"
 	"github.com/onXmaps/osm/osmpbf"
 )
 

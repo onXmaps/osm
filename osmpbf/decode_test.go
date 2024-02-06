@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onXmaps/osm
+	"github.com/onXmaps/osm"
 )
 
 const (
