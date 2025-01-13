@@ -14,9 +14,11 @@ import (
 	"github.com/onXmaps/osm"
 )
 
-var _ SeqNum = MinuteSeqNum(0)
-var _ SeqNum = HourSeqNum(0)
-var _ SeqNum = DaySeqNum(0)
+var (
+	_ SeqNum = MinuteSeqNum(0)
+	_ SeqNum = HourSeqNum(0)
+	_ SeqNum = DaySeqNum(0)
+)
 
 // MinuteSeqStart is the beginning of valid minutely sequence data.
 // The few before look to be way more than a minute.
@@ -197,7 +199,7 @@ func (ds *Datasource) fetchState(ctx context.Context, n SeqNum) (*State, error) 
 	if n.Uint64() != 0 {
 		url = ds.baseSeqURL(n) + ".state.txt"
 	} else {
-		url = fmt.Sprintf("%s/%s/state.txt", ds.baseURL(), n.Dir())
+		url = fmt.Sprintf("%s/state.txt", ds.baseURL())
 	}
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -345,9 +347,8 @@ func (ds *Datasource) changeURL(n SeqNum) string {
 
 func (ds *Datasource) baseSeqURL(sn SeqNum) string {
 	n := sn.Uint64()
-	return fmt.Sprintf("%s/%s/%03d/%03d/%03d",
+	return fmt.Sprintf("%s/%03d/%03d/%03d",
 		ds.baseURL(),
-		sn.Dir(),
 		n/1000000,
 		(n%1000000)/1000,
 		n%1000)
